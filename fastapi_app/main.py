@@ -6,7 +6,13 @@ from fastapi import FastAPI,HTTPException,Query,Path
 from pydantic import BaseModel,Field,model_validator
 
 UPSTREAM_URL=os.getenv("UPSTREAM_URL","https://openlibrary.org")
-HEADERS={"User-Agent":"BookExplorer/0.1 (prachisharma062006@gmail.com)"}
+CONTACT_EMAIL=os.getenv("OPENLIBRARY_CONTACT_EMAIL")
+USER_AGENT=(
+    f"BookExplorer/0.1 ({CONTACT_EMAIL})"
+    if CONTACT_EMAIL
+    else "BookExplorer/0.1"
+)
+HEADERS={"User-Agent":USER_AGENT}
 
 @asynccontextmanager
 async def lifespan(app):
