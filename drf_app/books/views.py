@@ -8,7 +8,12 @@ from rest_framework.exceptions import APIException,NotFound
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from .serializers import BookSerializer, ReadingListItemSerializer
 
-HEADERS = {"User-Agent": "BookExplorer/0.1 (prachisharma062006@gmail.com)"}
+CONTACT_EMAIL = settings.OPENLIBRARY_CONTACT_EMAIL
+HEADERS = {
+    "User-Agent": f"BookExplorer/0.1 ({CONTACT_EMAIL})"
+    if CONTACT_EMAIL
+    else "BookExplorer/0.1"
+}
 READING_LIST = []
 session = requests.Session()
 
